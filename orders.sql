@@ -5,11 +5,6 @@ SELECT
       b.num_of_item,
       a.status,
       EXTRACT (date FROM a.created_at) AS order_date,
-      COUNT (a.status = "Complete" ) AS complete_count,
-      COUNT (a.status = "Cancelled" ) AS cancelled_count,
-      COUNT (a.status = "Shipped" ) AS shipped_count,
-      COUNT (a.status = "Processing" ) AS processing_count,
-      COUNT (a.status = "Returned" ) AS returning_count,
       COUNT(a.order_id) AS order_count,
       COUNT(a.user_id) AS user_count,
       SUM(case when a.delivered_at IS NOT NULL THEN  b.num_of_item * c.retail_price ELSE NULL END ) AS revenue,
@@ -36,10 +31,5 @@ GROUP BY          a.order_id,
 
 ORDER BY 
                   order_date, 
-                  complete_count,
-                  cancelled_count,
-                  shipped_count,
-                  processing_count,
-                  returning_count,
                   order_count,
                   revenue;
